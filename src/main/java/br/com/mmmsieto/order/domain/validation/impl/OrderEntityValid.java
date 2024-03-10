@@ -5,8 +5,6 @@ import br.com.mmmsieto.order.domain.exceptions.DomainException;
 import br.com.mmmsieto.order.domain.exceptions.Error;
 import br.com.mmmsieto.order.domain.validation.Valid;
 import org.apache.commons.lang3.Validate;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
