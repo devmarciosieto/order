@@ -12,4 +12,7 @@ spring:
     properties:
       hibernate:
         show_sql: true
+    open-in-view: false
+
+
 
