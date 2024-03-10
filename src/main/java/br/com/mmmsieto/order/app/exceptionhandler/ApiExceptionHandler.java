@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
+    // TODO arrumar para o patrão rfc7807  https://datatracker.ietf.org/doc/html/rfc7807
     private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
     @ExceptionHandler(DomainException.class)
     public ResponseEntity<?> getDomainException(DomainException domainException) {
