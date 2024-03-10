@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+
 @RequestMapping("/order")
 @RestController
 public class OrderController {
@@ -25,13 +26,14 @@ public class OrderController {
 
         log.info("create new order");
 
-        return new OrderEntity(
-                UUID.randomUUID(),
-                UUID.randomUUID(),
-                UUID.randomUUID(),
-                1202,
-                BigDecimal.TEN,
-                LocalDateTime.now().plusDays(1));
+        return new OrderEntity.Builder()
+                .id(UUID.randomUUID())
+                .customerId(UUID.randomUUID())
+                .productId(UUID.randomUUID())
+                .quantity(2)
+                .amount(BigDecimal.TEN)
+                .date(LocalDateTime.now().plusDays(1))
+                .build();
 
     }
 }

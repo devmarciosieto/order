@@ -1,86 +1,83 @@
 package br.com.mmmsieto.order.domain.entity;
 
-import br.com.mmmsieto.order.domain.exceptions.DomainException;
-import br.com.mmmsieto.order.domain.exceptions.Error;
-
+import br.com.mmmsieto.order.domain.validation.Valid;
+import br.com.mmmsieto.order.domain.validation.impl.OrderEntityValid;
 import lombok.Getter;
-import org.apache.commons.lang3.Validate;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
 public class OrderEntity {
 
-    private UUID id;
-    private UUID customerId;
-    private UUID productId;
-    private Integer quantity;
-    private BigDecimal amount;
-    private LocalDateTime date;
+    private final UUID id;
+    private final UUID customerId;
+    private final UUID productId;
+    private final Integer quantity;
+    private final BigDecimal amount;
+    private final LocalDateTime date;
 
-    public OrderEntity(UUID id,
-                       UUID customerId,
-                       UUID productId,
-                       Integer quantity,
-                       BigDecimal amount,
-                       LocalDateTime date) {
+    private OrderEntity(
+            UUID id,
+            UUID customerId,
+            UUID productId,
+            Integer quantity,
+            BigDecimal amount,
+            LocalDateTime date) {
         this.id = id;
         this.customerId = customerId;
         this.productId = productId;
         this.quantity = quantity;
         this.amount = amount;
         this.date = date;
-        validate();
     }
 
-    private void validate() {
-        List<Error> errors = new ArrayList<>();
+    public static class Builder {
 
-        try {
-            Validate.notNull(id, "id cannot be null");
-        } catch (Exception e) {
-            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
+        private final Valid validator = new OrderEntityValid();
+
+        private UUID id;
+        private UUID customerId;
+        private UUID productId;
+        private Integer quantity;
+        private BigDecimal amount;
+        private LocalDateTime date;
+
+        public Builder id(UUID id) {
+            this.id = id;
+            return this;
         }
 
-        try {
-            Validate.notNull(customerId, "customerId cannot be null");
-        } catch (Exception e) {
-            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
+        public Builder customerId(UUID customerId) {
+            this.customerId = customerId;
+            return this;
         }
 
-        try {
-            Validate.notNull(productId, "productId cannot be null");
-        } catch (Exception e) {
-            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
+        public Builder productId(UUID productId) {
+            this.productId = productId;
+            return this;
         }
 
-        try {
-            Validate.notNull(quantity, "quantity cannot be null");
-            Validate.isTrue(quantity > 0, "quantity must be greater than zero");
-        } catch (Exception e) {
-            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
+        public Builder quantity(Integer quantity) {
+            this.quantity = quantity;
+            return this;
         }
 
-        try {
-            Validate.notNull(amount, "amount cannot be null");
-            Validate.isTrue(amount.compareTo(BigDecimal.ZERO) > 0, "amount must be greater than zero");
-        } catch (Exception e) {
-            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
+        public Builder amount(BigDecimal amount) {
+            this.amount = amount;
+            return this;
         }
 
-        try {
-            Validate.notNull(date, "date cannot be null");
-            Validate.isTrue(date.isAfter(LocalDateTime.now()), "date cannot be in the past");
-        } catch (Exception e) {
-            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
+        public Builder date(LocalDateTime date) {
+            this.date = date;
+            return this;
         }
 
-        if (!errors.isEmpty()) {
-            throw DomainException.with(errors);
+        public OrderEntity build() {
+            OrderEntity orderEntity = new OrderEntity(id, customerId, productId, quantity, amount, date);
+            validator.execute(orderEntity);
+            return orderEntity;
         }
     }
-
 }

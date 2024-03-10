@@ -1,7 +1,5 @@
 package br.com.mmmsieto.order.domain.exceptions;
 
-import lombok.Getter;
-
 import java.util.List;
 
 public class DomainException extends NoStacktraceException {
@@ -13,12 +11,12 @@ public class DomainException extends NoStacktraceException {
         this.errors = anErrors;
     }
 
-    public static DomainException with(final Error anErrors) {
-        return new DomainException(anErrors.message(), List.of(anErrors));
+    public static DomainException with(final String aMessage, final Error anErrors) {
+        return new DomainException(aMessage, List.of(anErrors));
     }
 
-    public static DomainException with(final List<Error> anErrors) {
-        return new DomainException("", anErrors);
+    public static DomainException with(final String message, final List<Error> anErrors) {
+        return new DomainException(message, anErrors);
     }
 
     public List<Error> getErrors() {
