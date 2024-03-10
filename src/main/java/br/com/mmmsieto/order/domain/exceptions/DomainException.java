@@ -1,4 +1,6 @@
-package br.com.mmmsieto.order.app.v1.controller.domain.exceptions;
+package br.com.mmmsieto.order.domain.exceptions;
+
+import lombok.Getter;
 
 import java.util.List;
 

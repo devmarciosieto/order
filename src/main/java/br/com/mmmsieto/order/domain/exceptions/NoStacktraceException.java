@@ -1,4 +1,4 @@
-package br.com.mmmsieto.order.app.v1.controller.domain.exceptions;
+package br.com.mmmsieto.order.domain.exceptions;
 
 public class NoStacktraceException extends RuntimeException {
 

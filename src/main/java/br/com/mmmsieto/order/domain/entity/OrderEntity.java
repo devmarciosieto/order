@@ -1,7 +1,7 @@
-package br.com.mmmsieto.order.app.v1.controller.domain.entity;
+package br.com.mmmsieto.order.domain.entity;
 
-import br.com.mmmsieto.order.app.v1.controller.domain.exceptions.DomainException;
-import br.com.mmmsieto.order.app.v1.controller.domain.exceptions.Error;
+import br.com.mmmsieto.order.domain.exceptions.DomainException;
+import br.com.mmmsieto.order.domain.exceptions.Error;
 
 import lombok.Getter;
 import org.apache.commons.lang3.Validate;
@@ -41,41 +41,41 @@ public class OrderEntity {
 
         try {
             Validate.notNull(id, "id cannot be null");
-        } catch (IllegalArgumentException e) {
-            errors.add(new Error(e.getMessage()));
+        } catch (Exception e) {
+            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
         }
 
         try {
             Validate.notNull(customerId, "customerId cannot be null");
-        } catch (IllegalArgumentException e) {
-            errors.add(new Error(e.getMessage()));
+        } catch (Exception e) {
+            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
         }
 
         try {
             Validate.notNull(productId, "productId cannot be null");
-        } catch (IllegalArgumentException e) {
-            errors.add(new Error(e.getMessage()));
+        } catch (Exception e) {
+            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
         }
 
         try {
             Validate.notNull(quantity, "quantity cannot be null");
             Validate.isTrue(quantity > 0, "quantity must be greater than zero");
-        } catch (IllegalArgumentException e) {
-            errors.add(new Error(e.getMessage()));
+        } catch (Exception e) {
+            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
         }
 
         try {
             Validate.notNull(amount, "amount cannot be null");
             Validate.isTrue(amount.compareTo(BigDecimal.ZERO) > 0, "amount must be greater than zero");
-        } catch (IllegalArgumentException e) {
-            errors.add(new Error(e.getMessage()));
+        } catch (Exception e) {
+            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
         }
 
         try {
             Validate.notNull(date, "date cannot be null");
             Validate.isTrue(date.isAfter(LocalDateTime.now()), "date cannot be in the past");
-        } catch (IllegalArgumentException e) {
-            errors.add(new Error(e.getMessage()));
+        } catch (Exception e) {
+            errors.add(new Error("id", "UUID","id is required" ,e.getMessage()));
         }
 
         if (!errors.isEmpty()) {
